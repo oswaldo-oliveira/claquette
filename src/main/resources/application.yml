@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: claquette
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/claquette"
+    username: docker
+    password: docker
+  jpa:
+    hibernate:
+      ddl-auto: update
