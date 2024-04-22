@@ -1,6 +1,7 @@
 package br.com.claquette.services;
 
 import br.com.claquette.model.dto.request.MovieRequestDto;
+import br.com.claquette.model.dto.request.MovieUpdateRequestDto;
 import br.com.claquette.model.dto.response.MovieResponseDto;
 import br.com.claquette.model.entity.Movie;
 import br.com.claquette.repositories.MovieRepository;
@@ -40,7 +41,7 @@ public class MovieService {
         return modelMapper.map(movie, MovieResponseDto.class);
     }
 
-    public void updateMovie(UUID id, MovieRequestDto movie) {
+    public void updateMovie(UUID id, MovieUpdateRequestDto movie) {
         var entity = movieRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         entity.setCreatedAt(LocalDateTime.now());
         modelMapper.map(movie, entity);

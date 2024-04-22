@@ -1,6 +1,7 @@
 package br.com.claquette.controllers;
 
 import br.com.claquette.model.dto.request.MovieRequestDto;
+import br.com.claquette.model.dto.request.MovieUpdateRequestDto;
 import br.com.claquette.model.dto.response.MovieResponseDto;
 import br.com.claquette.services.MovieService;
 import jakarta.validation.Valid;
@@ -43,7 +44,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateMovie(@PathVariable UUID id, @RequestBody MovieRequestDto movie) {
+    public ResponseEntity<Void> updateMovie(@PathVariable UUID id, @RequestBody MovieUpdateRequestDto movie) {
         movieService.updateMovie(id, movie);
 
         return ResponseEntity.noContent().build();
