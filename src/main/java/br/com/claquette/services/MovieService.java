@@ -7,6 +7,7 @@ import br.com.claquette.model.entity.Movie;
 import br.com.claquette.repositories.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.ai.vertexai.gemini.VertexAiGeminiChatClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final ModelMapper modelMapper;
+    private final VertexAiGeminiChatClient chatClient;
 
     public MovieResponseDto createMovie(MovieRequestDto movie) {
         var entity = modelMapper.map(movie, Movie.class);
@@ -51,5 +53,13 @@ public class MovieService {
     public void deleteMovie(UUID id) {
         var entity = movieRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         movieRepository.delete(entity);
+    }
+
+    public String getRecommendationByMovieId(UUID movieId) {
+        var movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        var prompt = "Me sugira filmes parecidos com o filme " + movie.getName();
+
+        return chatClient.call(prompt);
     }
 }

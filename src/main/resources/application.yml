@@ -8,3 +8,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  ai:
+    vertex:
+      ai:
+        gemini:
+          project-id: PROJECT-ID
+          location: LOCATION
+          chat:
+            options:
+              model: gemini-1.0-pro-vision-001
+              temperature: 0.4

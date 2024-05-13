@@ -43,6 +43,13 @@ public class MovieController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{movieId}/recommendation")
+    public ResponseEntity<String> getRecommendationByMovieId(@PathVariable UUID movieId) {
+        var response = movieService.getRecommendationByMovieId(movieId);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateMovie(@PathVariable UUID id, @RequestBody MovieUpdateRequestDto movie) {
         movieService.updateMovie(id, movie);
